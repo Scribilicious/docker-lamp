@@ -1,40 +1,67 @@
 version: "3.1"
 services:
     www:
+        container_name: www
         build: .
         ports: 
-            - "8001:80"
+            - 8081:80
         volumes:
             - ./www:/var/www/html/
         links:
             - db
         networks:
             - default
+    # db:
+    #     container_name: sql
+    #     image: mysql/mysql-server:8.0.23
+    #     ports:
+    #         - "3306:3306"
+    #     command: --default-authentication-plugin=mysql_native_password
+    #     environment:
+    #         MYSQL_DATABASE: local
+    #         MYSQL_USER: root
+    #         MYSQL_PASSWORD: root
+    #         MYSQL_ROOT_PASSWORD: root
+    #     volumes:
+    #         - ./dump:/docker-entrypoint-initdb.d
+    #         - ./conf:/etc/mysql/conf.d
+    #         - persistent:/var/lib/mysql
+    #     networks:
+    #         - default
+    # phpmyadmin:
+    #     container_name: phpmyadmin
+    #     image: phpmyadmin/phpmyadmin
+    #     links:
+    #         - db:db
+    #     ports:
+    #         - 8000:80
+    #     environment:
+    #         MYSQL_USER: user
+    #         MYSQL_PASSWORD: admin
+    #         MYSQL_ROOT_PASSWORD: admin
+
     db:
-        image: mysql:8.0
-        ports: 
-            - "3306:3306"
-        command: --default-authentication-plugin=mysql_native_password
+        container_name: mariadb
+        image: mariadb:10.3
+        restart: always
+        ports:
+            - 3306:3306
         environment:
-            MYSQL_DATABASE: myDb
-            MYSQL_USER: user
-            MYSQL_PASSWORD: test
-            MYSQL_ROOT_PASSWORD: test 
-        volumes:
-            - ./dump:/docker-entrypoint-initdb.d
-            - ./conf:/etc/mysql/conf.d
-            - persistent:/var/lib/mysql
-        networks:
-            - default
+            MYSQL_DATABASE: local
+            MYSQL_USER: root
+            MYSQL_PASSWORD: root
+            MYSQL_ROOT_PASSWORD: root
+
     phpmyadmin:
-        image: phpmyadmin/phpmyadmin
-        links: 
+        container_name: phpmyadmin
+        image: phpmyadmin
+        restart: always
+        links:
             - db:db
         ports:
-            - 8000:80
+          - 8080:80
         environment:
-            MYSQL_USER: user
-            MYSQL_PASSWORD: test
-            MYSQL_ROOT_PASSWORD: test 
+          - PMA_ARBITRARY=1
+
 volumes:
     persistent:
