@@ -28,9 +28,7 @@ and
 bash start.sh
 ```
 
-Open phpmyadmin at [http://localhost:8000](http://localhost:8000)
-
-No Server is needed, just the login + password. In our case root, root.
+Open phpmyadmin at [http://localhost:8000](http://localhost:8000) _No Server is needed, just the login + password. In our case root, root._
 
 Open web browser to look at a simple php example at [http://localhost/](http://localhost/)
 
