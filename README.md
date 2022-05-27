@@ -1,9 +1,8 @@
 # docker-lamp
 
-Docker example with Apache, MySql 8.0, PhpMyAdmin and Php
+Original a fork of [jcavat](https://github.com/jcavat/docker-lamp).
 
-- You can use MariaDB 10.1 if you checkout to the tag `mariadb-10.1` - contribution made by [luca-vercelli](https://github.com/luca-vercelli)
-- You can use MySql 5.7 if you checkout to the tag `mysql5.7`
+Docker example with Apache, MariaDB 10.3, PhpMyAdmin and PHP 8.0
 
 I use docker-compose as an orchestrator. To run these containers:
 
@@ -11,11 +10,31 @@ I use docker-compose as an orchestrator. To run these containers:
 docker-compose up -d
 ```
 
+If you wan't to rebuild all Images use:
+
+```
+docker-compose up -d --build
+```
+
+Or just use:
+
+```
+bash build.sh
+```
+
+and
+
+```
+bash start.sh
+```
+
 Open phpmyadmin at [http://localhost:8000](http://localhost:8000)
-Open web browser to look at a simple php example at [http://localhost:8001](http://localhost:8001)
+Open web browser to look at a simple php example at [http://localhost/](http://localhost/)
 
 Run mysql client:
 
-- `docker-compose exec db mysql -u root -p` 
+```
+docker-compose exec db mysql -u root -p
+```
 
 Enjoy !
